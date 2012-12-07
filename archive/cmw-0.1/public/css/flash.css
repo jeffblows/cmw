@@ -1,0 +1,15 @@
+/**
+ * Stylesheet used for the flashbox
+ *
+ * @author Jeff Blows
+ * @link   http://jikkentechnology.com
+ */
+.flash
+{
+    text-align: center;
+    font-size: 20px;
+    border: 1px solid black;
+    background-color: green;
+    height: 30px;
+}
+

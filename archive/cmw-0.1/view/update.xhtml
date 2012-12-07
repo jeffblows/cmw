@@ -1,0 +1,15 @@
+#{
+  form_for(@user, :method=> :post, :action => '/register') do |f|
+    f.fieldset do
+        f.legend 'Register'
+        f.input_text 'Email Address', :email
+        f.input_password 'Password', :password
+        f.input_password 'Password Confirmation', :password_confirmation
+                 f.submit 'Update'
+        end
+        end
+}
+    <div class="submit">
+      <input type="submit" value="Register" />
+    </div>
+

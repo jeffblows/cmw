@@ -1,0 +1,12 @@
+#{
+  form_for(@user, :method => :post, :action => './login') do |f|
+    f.fieldset do
+      f.legend 'Login'
+      f.input_text 'Email address', :login
+      f.input_password 'Password', :password
+
+      f.input_submit 'Login', :class=>'submit'
+
+    end
+  end
+}
