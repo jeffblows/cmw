@@ -18,17 +18,19 @@ class MainController < Controller
     @title = "Login"
     redirect_referer if logged_in?
     return unless request.post?
-#    @user = nil
     if user_login(request.subset(:login, :password))
-      flash[:message] = 'Logged in'
+      flash[:success] = 'Logged in'
       redirect MainController.r(:index)
     else
-      flash[:message] = 'Username or Password incorrect'
+      flash[:error] = 'Username or Password incorrect'
     end
   end
 
   def register
     @title = "Register for an account"
+  end
+
+  def save
     if request.post?
       @user = ::User.new
       @user[:email] = request[:email]
@@ -39,28 +41,27 @@ class MainController < Controller
 
       if @user.valid?   # sequel model validation
         if @user.save
-          flash[:message] = 'Account created, feel free to login below'
+          flash[:success] = 'Account created, feel free to login below'
           redirect MainController.r(:login)
         end
       else
         if (@user.errors.on(:email) or @user.errors.on(:login)) != nil
           @user[:email] = nil
           @user[:login] = nil
-          flash[:email] = 'An account already exists with that user name'
+          flash[:error] = 'An account already exists with that user name'
         end
         if @user.errors.on(:password_confirmation) != nil
           @user.password = nil
           @user.password_confirmation = nil
-          flash[:pwc] = 'Password and confirmation do not match'
+          flash[:error] = 'Password and confirmation do not match'
         end
- #       render_view(:update)
-#        redirect MainController.r(:register)
+                        #       render_view(:update)
+                        #        redirect MainController.r(:register)
       end
     end
   end
-
   def logout
-    flash[:message] = "Logged out"
+    flash[:success] = "Logged out"
     user_logout
     redirect MainController.r(:index)
   end

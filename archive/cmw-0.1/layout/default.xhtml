@@ -10,7 +10,7 @@
         #{css('layout')}
         #{css('text')}
         #{css('form')}
-	#{css('flash')}
+        #{css('flash')}
     </head>
     <body>
         <div class="container">
@@ -53,8 +53,14 @@
                     </nav>
                 </div>
 
+                <?r [:success, :error].each do |type| ?>
+                <?r if flash[type] ?>
+                <div class="message grid_12 #{type} flash">
+                    <p>#{flash[type]}</p>
+                </div>
+                <?r end ?>
+                <?r end ?>
                 <div id="content" class="grid_12">
-                    #{flashbox}
                     #{@content}
                 </div>
             </div>

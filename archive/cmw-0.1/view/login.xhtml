@@ -1,5 +1,5 @@
 #{
-  form_for(@user, :method => :post, :action => './login') do |f|
+  form_for(nil, :method => :post, :action => "#{MainController.r(:login)}") do |f|
     f.fieldset do
       f.legend 'Login'
       f.input_text 'Email address', :login
