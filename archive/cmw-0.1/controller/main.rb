@@ -28,11 +28,13 @@ class MainController < Controller
 
   def register
     @title = "Register for an account"
+    @user = nil
   end
 
   def save
+
     if request.post?
-      @user = ::User.new
+      @user = flash[:form_data] || User.new
       @user[:email] = request[:email]
       @user[:login] = request[:email]
       @user.password = request[:password]
@@ -55,19 +57,17 @@ class MainController < Controller
           @user.password_confirmation = nil
           flash[:error] = 'Password and confirmation do not match'
         end
-                        #       render_view(:update)
-                        #        redirect MainController.r(:register)
+        @title = "Fix Errors"
+        render_view(:register)
+#        redirect MainController.r(:register)
       end
     end
   end
+
   def logout
     flash[:success] = "Logged out"
     user_logout
     redirect MainController.r(:index)
-  end
-
-  def update
-    @title = "Update"
   end
 
   # the string returned at the end of the function is used as the html body

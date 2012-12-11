@@ -1,5 +1,5 @@
 #{
-  form_for(nil, :method=> :post, :action => "#{MainController.r(:save)}") do |f|
+  form_for(@user, :method=> :post, :action => "#{MainController.r(:save)}") do |f|
     f.fieldset do
         f.input_text 'Email Address', :email, :placeholder => 'me@domain.com'
         f.input_password 'Password', :password

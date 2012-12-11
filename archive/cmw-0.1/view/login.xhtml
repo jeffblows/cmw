@@ -1,12 +1,13 @@
 #{
   form_for(nil, :method => :post, :action => "#{MainController.r(:login)}") do |f|
     f.fieldset do
-      f.legend 'Login'
-      f.input_text 'Email address', :login
-      f.input_password 'Password', :password
-
-      f.input_submit 'Login', :class=>'submit'
-
+        f.legend 'Login'
+        f.input_text 'Email address', :login
+        f.input_password 'Password', :password
     end
+    f.g.div(:class=>"submit") do
+        f.submit 'Login'
+    end
+
   end
 }
