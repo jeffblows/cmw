@@ -1,21 +1,14 @@
-<form action="#{MainController.r(:register)}" method="POST">
-  <fieldset>
-    <legend>Register</legend>
+<#{
+  form_for(@user, :method=> :post, :action => "#{MainController.r(:save)}") do |f|
+        f.fieldset do
+        f.input_text 'Email Address', :email, :placeholder => 'me@domain.com'
+        f.input_password 'Password', :password
+        f.input_password 'Password Confirmation', :password_confirmation
+        end
+        f.g.div(:class=>"submit") do
+        f.submit 'Register'
+        end
+        end
+        }
 
-    <label for="email">Email address</label>
-    <input type="text" name="email" />
-
-    <br /><br />
-    <label for"password">Password</label>
-    <input type="password" name="password" />
-
-    <br /><br />
-    <label for="password_confirmation">Password confirmation</label>
-    <input type="password" name="password_confirmation" />
-
-    <br /><br />
-
-    <input type="submit" value="Register" />
-  </fieldset>
-</form>
 

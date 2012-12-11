@@ -3,6 +3,7 @@ class User < Sequel::Model(:users)
   def validate
     super
     validates_unique :email, :login
+    validates_equal(:password, :password_confirmation)
   end
 
   attr_accessor :password

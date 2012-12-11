@@ -22,31 +22,47 @@ class MainController < Controller
     redirect_referer if logged_in?
     return unless request.post?
     if user_login(request.subset(:login, :password))
-      flash[:message] = 'Logged in'
+      flash[:success] = 'Logged in'
       redirect MainController.r(:index)
     else
-      flash[:message] = 'Username or Password incorrect'
+      flash[:error] = 'Username or Password incorrect'
     end
   end
 
   def register
     @title = "Register for an account"
+    @user = nil
+  end
+
+  def save
+
     if request.post?
-      @user = ::User.new
+      @user = flash[:form_data] || User.new
       @user[:email] = request[:email]
       @user[:login] = request[:email]
       @user.password = request[:password]
       @user.password_confirmation = request[:password_confirmation]
       @user.password_salt = Digest::SHA1.hexdigest("--#{Time.now.to_f}--#{user.email}--")
 
-      if @user.valid?
+      if @user.valid?   # sequel model validation
         if @user.save
-          flash[:message] = 'Account created, feel free to login below'
+          flash[:success] = 'Account created, feel free to login below'
           redirect MainController.r(:login)
-	end
+        end
       else
-        flash[:message] = 'An account already exists with that user name'
-        redirect MainController.r(:register)
+        if (@user.errors.on(:email) or @user.errors.on(:login)) != nil
+          @user[:email] = nil
+          @user[:login] = nil
+          flash[:error] = 'An account already exists with that user name'
+        end
+        if @user.errors.on(:password_confirmation) != nil
+          @user.password = nil
+          @user.password_confirmation = nil
+          flash[:error] = 'Password and confirmation do not match'
+        end
+        @title = "Fix Errors"
+        render_view(:register)
+                        #        redirect MainController.r(:register)
       end
     end
   end

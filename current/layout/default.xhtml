@@ -9,6 +9,7 @@
         #{css('grid')}
         #{css('layout')}
         #{css('text')}
+        #{css('form')}
        	#{css('flash')}
     </head>
     <body>
@@ -51,20 +52,15 @@
                     </nav>
                 </div>
 
-                <div id="content" class="row">
-<?r if !logged_in? ?>
-                    <content class="grid_12">
-                        #{@content}
-                    </content>
-<?r else ?>
-                    <lsb class="grid_3">
-                        #{flashbox}
-                        #{@leftsidebar}
-                    </lsb>
-                    <content class="grid_9">
-                        #{@content}
-                    </content>
-<?r end ?>
+                <?r [:success, :error].each do |type| ?>
+                <?r if flash[type] ?>
+                <div class="message grid_12 #{type} flash">
+                    <p>#{flash[type]}</p>
+                </div>
+                <?r end ?>
+                <?r end ?>
+                <div id="content" class="grid_12">
+                    #{@content}
                 </div>
             </div>
         </div>
