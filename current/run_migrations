@@ -1,0 +1,4 @@
+#/usr/sh
+
+mv -f cmw.db cmw.db.old
+sequel19 -m db_migrations sqlite://cmw.db
