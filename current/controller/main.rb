@@ -9,9 +9,11 @@
 #
 # this will force the controller to be mounted on: /otherurl.
 class MainController < Controller
+  #provide(:json)
+
   # the index action is called automatically when no other action is specified
   def index
-    @title = 'Welcome to Ramaze!'
+    @title = 'Willoughby Judo Club'
     if logged_in?
       @leftsidebar = 'Users Information'
     end
@@ -73,6 +75,34 @@ class MainController < Controller
     redirect MainController.r(:index)
   end
 
+  def termsofuse
+
+  end
+
+  def aboutus
+
+  end
+
+  def support
+
+  end
+
+  def submenu
+    if request.get?
+      case request[:index]
+        when "1"
+          @submenu = Menu.all
+          render_partial :submenu
+        when "2"
+          respond!("<ul class='clearfix'><li onmouseover='subnavOver(this)' onmouseout='mOut(this)'><a href='timetable'>Timetable</a></li><li onmouseover='subnavOver(this)' onmouseout='mOut(this)'><a href='fees'>Fees</a></li></ul>")
+        else
+          respond!("<script type='text/javascript'>alert('invalid menu number')</script>")
+      end
+
+    else
+      respond!("Not a get", 200)
+    end
+  end
   # the string returned at the end of the function is used as the html body
   # if there is no template for the action. if there is a template, the string
   # is silently ignored

@@ -1,6 +1,7 @@
-<#{
+#{
   form_for(@user, :method=> :post, :action => "#{MainController.r(:save)}") do |f|
         f.fieldset do
+        f.legend 'Register'
         f.input_text 'Email Address', :email, :placeholder => 'me@domain.com'
         f.input_password 'Password', :password
         f.input_password 'Password Confirmation', :password_confirmation
