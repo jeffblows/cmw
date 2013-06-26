@@ -1,78 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
+<head>
+  <meta charset="utf-8" />
 
-        <title>#{@title}</title>
+  <title>#{@title}</title>
+  #{css('bootstrap')}
+  #{css('bootstrap-responsive')}
+  #{css('theme')}
+  #{css('layout')}
+  #{css('flash')}
 
-        #{css('reset')}
-        #{css('grid')}
-        #{css('layout')}
-        #{css('text')}
-        #{css('form')}
-       	#{css('flash')}
-    </head>
-    <body>
-        <div class="container">
-            <div id="container" class="row">
-                <!-- Top part, contains the navigation menu -->
-                <div id="top" class="grid_12">
-                    <header class="grid_6">
-                        <h1>#{@title}</h1>
-                    </header> 
 
-                    <nav class="grid_6 last">
-                        <ul class="clearfix">
-<?r if !logged_in? ?>    
-                            <li>
-                                <a href="login">Login</a>
-                            </li>
-                            <li>
-                                <a href="register">Register</a>
-                            </li>
+  #{js('http://code.jquery.com/jquery-latest.js')}
+  #{js('bootstrap.min')}
+  #{js('twitter-bootstrap-hover-dropdown')}
+  #{js('theme')}
+
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <!-- Top part, contains the navigation menu -->
+      <a class="brand" href="/"><strong>Willoughby Judo Club</strong></a>
+
+      <div class="nav-collapse collapse">
+        <ul class="nav pull-right">
+          <li class="dropdown">
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+              Our Club
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="history">History</a></li>
+              <li><a href="coaches">Coaches</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"  data-hover="dropdown" data-delay="1000" data-close-others="true">
+              Training
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="timetable">Timetable</a></li>
+              <li><a href="fees">Fees</a></li>
+              <li><a href="courses">Courses</a></li>
+              <li><a href="etiquette">Etiquette</a></li>
+            </ul>
+          </li>
+<?r if !logged_in? ?>
+          <li><a href="login">Login</a></li>
+          <li><a href="register">Register</a></li>
 <?r else ?>
-                            <li>
-                                <a href="http://ramaze.net/">Website</a>
-                            </li>
-                            <li>
-                                <a href="http://ramaze.net/documentation/index.html">
-                                    Documentation
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://groups.google.com/forum/#!forum/ramaze">
-                                    Mailing List
-                                </a>
-                            </li>
-                            <li>
-                                <a href="logout">Logout</a>
-                            </li>
+          <li><a href="profile">My Profile</a></li>
+          <li><a href="actions">Actions</a></li>
+          <li><a href="logout">Logout</a></li>
 <?r end ?>
-                        </ul>
-                    </nav>
-                </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div><!-- navbar -->
 
-                <?r [:success, :error].each do |type| ?>
-                <?r if flash[type] ?>
-                <div class="message grid_12 #{type} flash">
-                    <p>#{flash[type]}</p>
-                </div>
-                <?r end ?>
-                <?r end ?>
-                <div id="content" class="grid_12">
-                    #{@content}
-                </div>
-            </div>
+<?r [:success, :error].each do |type| ?>
+  <?r if flash[type] ?>
+    <div class="message span12 #{type} flash">
+      <p>#{flash[type]}</p>
+    </div>
+  <?r end ?>
+<?r end ?>
+
+<div class="container">
+  <div id="content" class="span12">
+    #{@content}
+  </div>
+</div><!-- content container -->
+
+<footer id="footer" class="navbar navbar-fixed-bottom">
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <div class="span4 sitemap">
+          <h3 class="footer_header">Site Map</h3>
+          <ul>
+            <li><a href="/">Home</a></li>
+          </ul>
         </div>
-            <footer id="footer">
-                <p>
-                    Ramaze is free software and is licensed under the Ruby license.<br />
-                    All textual content is licensed under a 
-                    <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
-                        Creative Commons license.
-                    </a>
-                </p>
-            </footer>
+        <div class="span4 sitemap">
+          <h3 class="footer_header">Links</h3>
+          <ul>
+            <li><a href="/termsofuse">Terms of Use</a></li>
+            <li><a href="/aboutus">About Us</a></li>
+            <li><a href="/support">Support</a></li>
+          </ul>
         </div>
-    </body>
+      </div>
+    </div>
+    <div class="credits">
+      <div class="row copyright">
+        <div class="span12">
+          This website is built using <a href="http://ramaze.net">Ramaze</a> - Free software licensed under the Ruby license.
+        </div>
+        <div class="span12">
+          &copy 2013 Jiikken Technology.
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
 </html>
