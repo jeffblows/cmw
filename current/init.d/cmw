@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# CMW Linux service controller script
+cd "/opt/cmw/"
+
+case "$1" in
+    start)
+        ./start-cmw.sh
+        ;;
+    stop)
+        ./stop-cmw.sh
+        ;;
+    *)
+        echo "Usage: $0 {start|stop}"
+        exit 1
+        ;;
+esac
+
